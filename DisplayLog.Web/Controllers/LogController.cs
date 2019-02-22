@@ -22,7 +22,7 @@ namespace DisplayLog.Web.Controllers
         [HttpPost("UploadLog")]
         public async Task UploadLog([FromBody] LogMessage client)
         {
-            await logHub.Clients.All.SendAsync("ReciveMessage", client);
+            await logHub.Clients.All.SendCoreAsync("ReciveMessage", new object[] { client});
         }
 
         [HttpGet]

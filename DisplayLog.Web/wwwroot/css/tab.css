@@ -1,0 +1,12 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+#nav{
+    position: relative;
+}
+.content{
+    height: 544px;
+    right:-690px;
+    top: 0;
+}

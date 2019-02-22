@@ -9,9 +9,9 @@ namespace DisplayLog.Web.SignalR.Hubs
 {
     public class PushLogHub : Hub
     {
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
-            return base.OnConnectedAsync();
+            await Clients.Caller.SendCoreAsync("ConnectionSuccess", new object[] { Context.ConnectionId });
         }
 
         public async Task SendMessageAsync(LogMessage log)
