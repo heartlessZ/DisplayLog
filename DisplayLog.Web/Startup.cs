@@ -64,7 +64,7 @@ namespace DisplayLog.Web
                 .CreateLogger();
 
             DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Add("index.html");    //将index.html改为需要默认起始页的文件名.
+            options.DefaultFileNames.Add("admin/index.html");    //将index.html改为需要默认起始页的文件名.
             app.UseDefaultFiles(options);
             app.UseStaticFiles();
 

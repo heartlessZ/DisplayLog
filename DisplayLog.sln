@@ -3,13 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisplayLog.Web", "DisplayLog.Web\DisplayLog.Web.csproj", "{A8DC0BD2-E7AC-48AB-9BA0-E037E346F010}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisplayLog.Web", "DisplayLog.Web\DisplayLog.Web.csproj", "{A8DC0BD2-E7AC-48AB-9BA0-E037E346F010}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisplayLog.Extensions", "DisplayLog.Extensions\DisplayLog.Extensions.csproj", "{A9298E51-730F-439A-B38E-E0071764EF5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisplayLog.Extensions", "DisplayLog.Extensions\DisplayLog.Extensions.csproj", "{A9298E51-730F-439A-B38E-E0071764EF5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisplayLog.Models", "DisplayLog.Models\DisplayLog.Models.csproj", "{B7246BB0-F2FE-4387-ADE6-28ED75578ABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisplayLog.Models", "DisplayLog.Models\DisplayLog.Models.csproj", "{B7246BB0-F2FE-4387-ADE6-28ED75578ABC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{F1B727B5-BDA8-4880-87DF-85CFEC643987}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{F1B727B5-BDA8-4880-87DF-85CFEC643987}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "webUI", "webUI\", "{4CE142EB-1AE6-45E3-88AD-CAAD9281DDA8}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_61716"
+		Debug.AspNetCompiler.PhysicalPath = "webUI\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61716\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_61716"
+		Release.AspNetCompiler.PhysicalPath = "webUI\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61716\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "61716"
+		SlnRelativePath = "webUI\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +54,10 @@ Global
 		{F1B727B5-BDA8-4880-87DF-85CFEC643987}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1B727B5-BDA8-4880-87DF-85CFEC643987}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1B727B5-BDA8-4880-87DF-85CFEC643987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE142EB-1AE6-45E3-88AD-CAAD9281DDA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE142EB-1AE6-45E3-88AD-CAAD9281DDA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE142EB-1AE6-45E3-88AD-CAAD9281DDA8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE142EB-1AE6-45E3-88AD-CAAD9281DDA8}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
