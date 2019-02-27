@@ -47,7 +47,11 @@ export default {
     const connection = new this.signalr.HubConnectionBuilder()
       .withUrl("http://192.168.2.116:19222/pushLogHub")
       .build();
-    connection.on('ReciveMessage',function(message){
+    connection.on('ConnectionSuccess', function (message) {
+      console.log("ConnectionSuccess and id:", message);
+    })
+
+    connection.on('ReciveMessage', function (message) {
       if(_this.logList && _this.logList.length > 0){
         let index = _this.logList.findIndex(function(item){
          return item.name == message.clientName;
@@ -61,6 +65,8 @@ export default {
         _this.logList.push({id:message.appId, name:message.clientName, content:[message.content]});
       }
     });
+    connection.serverTimeoutInMilliseconds = 15000; // 100 second
+
     connection.start();
   },
   methods:{

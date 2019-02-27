@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using DisplayLog.Models;
 using DisplayLog.Web.Filter;
 using DisplayLog.Web.SignalR.Hubs;
 using Microsoft.AspNetCore.Builder;
@@ -10,9 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Serilog;
+using SV.WebExtension.Core;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace DisplayLog.Web
@@ -42,17 +39,21 @@ namespace DisplayLog.Web
                 options.EnableDetailedErrors = true;
             });
 
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new Info
-            //    {
-            //        Version = "v1",
-            //        Title = "DisplayLog Api",
-            //        Description = "The all Ultimo Api",
-            //        TermsOfService = "None"
-            //    });
-            //    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DisplayLog.Web.xml"));
-            //});
+            services.Configure<AppConfig>(Configuration.GetSection("AppConfig"));
+
+            services.AddAutoFactory("DisplayLog.Services");
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "DisplayLog Api",
+                    Description = "The all DisplayLog Api",
+                    TermsOfService = "None"
+                });
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DisplayLog.Web.xml"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +65,7 @@ namespace DisplayLog.Web
                 .CreateLogger();
 
             DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Add("index.html");    //将index.html改为需要默认起始页的文件名.
+            options.DefaultFileNames.Add("admin/index.html");    //将index.html改为需要默认起始页的文件名.
             app.UseDefaultFiles(options);
             app.UseStaticFiles();
 
@@ -75,15 +76,18 @@ namespace DisplayLog.Web
 
             app.UseMvc();
 
+            //判断是否为开发环境
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ultimo Api v1");
-                });
+                
             }
+
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DisplayLog Api v1");
+            });
 
             //配置跨域处理
             app.UseCors(builder =>
