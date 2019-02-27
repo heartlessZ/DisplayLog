@@ -64,7 +64,7 @@ namespace DisplayLog.Web.Controllers
             {
                 return null;
             }
-            return File(buffer, FileContentType.GetMimeType(extension));
+            return File(buffer, FileContentType.GetMimeType(extension), fileName);
         }
     }
 }

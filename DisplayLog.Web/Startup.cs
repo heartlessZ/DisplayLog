@@ -65,7 +65,7 @@ namespace DisplayLog.Web
                 .CreateLogger();
 
             DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Add("admin/index.html");    //将index.html改为需要默认起始页的文件名.
+            options.DefaultFileNames.Add("index.html");    //将index.html改为需要默认起始页的文件名.
             app.UseDefaultFiles(options);
             app.UseStaticFiles();
 
@@ -74,7 +74,6 @@ namespace DisplayLog.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
 
             //判断是否为开发环境
             if (env.IsDevelopment())
@@ -103,6 +102,9 @@ namespace DisplayLog.Web
             {
                 route.MapHub<PushLogHub>("/pushLogHub");
             });
+
+            app.UseMvc();
+
         }
     }
 }
