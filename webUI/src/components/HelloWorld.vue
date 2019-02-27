@@ -1,16 +1,30 @@
 <template>
 <div class="tab">
-  <h2 class="title">日志表</h2>
-  <div class="logs">
-    <el-tabs tab-position="left" >
-      <el-tab-pane v-if="logList && logList.length" v-for="(log,index) in logList"  :label="log.name" >
-        <div v-if="log.content && log.content.length > 0" v-for="content in log.content">{{content}}</div>
-      </el-tab-pane>
-      <!--<el-tab-pane label="配置管理">配置管理</el-tab-pane>-->
-      <!--<el-tab-pane label="角色管理">角色管理</el-tab-pane>-->
-      <!--<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
-    </el-tabs>
-  </div>
+  <div class="header">LOG HUB</div>
+  <el-row>
+    <el-col :span="18">
+      <div class="logs">
+        <div class="log-name">
+          <span class="client-type">&nbsp;&nbsp;Client type</span>
+          <span class="log-content">&nbsp;&nbsp;Log dynamic</span>
+        </div>
+        <el-tabs tab-position="left"  @tab-click="getFileList" v-if="logList && logList.length">
+          <el-tab-pane v-if="logList && logList.length" v-for="(log,index) in logList" :key='index' :label="log.name" style="background: white">
+            <div v-if="log.content && log.content.length > 0" v-for="content in log.content" style="background: white;margin-left: 15px;margin-top: 10px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">{{content}}</div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="download">
+        <p style="background: white;font-weight: bold">&nbsp;&nbsp;Historical Log</p>
+          <ul >
+            <li style="background: white;margin-top: 5px"v-for="file in fileList" ><span style="background: white" >&nbsp;{{file}}</span><a  v-if="fileList && fileList.length" :href="'http://192.168.2.116:19222/api/Log/GetFile?clientName='+clientName+'&fileName='+file" download="logs" style="background: white"><i class="el-icon-download" style="background: white"></i></a></li>
+          </ul>
+      </div>
+    </el-col>
+  </el-row>
+
 </div>
 </template>
 
@@ -23,13 +37,15 @@ export default {
     return {
       value: "",
       logList:[],
+      fileList:[],
+      clientName:''
     }
   },
 
   mounted(){
     _this = this;
     const connection = new this.signalr.HubConnectionBuilder()
-      .withUrl("http://192.168.2.115:19222/pushLogHub")
+      .withUrl("http://192.168.2.116:19222/pushLogHub")
       .build();
     connection.on('ReciveMessage',function(message){
       if(_this.logList && _this.logList.length > 0){
@@ -48,7 +64,20 @@ export default {
     connection.start();
   },
   methods:{
-
+     getFileList:function (item) {
+       console.log(item)
+       console.log(item.label);
+       this.clientName=item.label;
+       this.$ajax.get('http://192.168.2.116:19222/api/Log/GetFilesName?clientName='+item.label)
+         .then(function (res) {
+           if(res.data){
+             _this.fileList = res.data
+           }else{
+             _this.fileList = [];
+           }
+         })
+       console.log(_this.fileList)
+     }
   }
 }
 </script>
@@ -58,20 +87,77 @@ export default {
 @import "../assets/css/index.css";
 </style>
 <style>
+  *{
+    margin: 0;
+    padding: 0;
+    background: #ecedf2;
+  }
+  .log-name{
+    height: 40px;
+    font-weight: bold;
+    width: 100%;
+  }
+  .client-type{
+    margin-left: 40px!important;
+    width: 258px;
+    background: white;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+  }
+  .log-content{
+    width: 68%;
+    background: white;
+    height: 40px;
+    display: inline-block;
+    line-height: 40px;
+    margin-left: 4px;
+  }
+ .tab{
+  /*background: #ecedf2;*/
+ }
+  .tab .el-tabs--left .el-tabs__item.is-left {
+    text-align: left;
+    background: white;
+  }
   .tab .el-tabs--left .el-tabs__nav.is-left{
-    margin-left: 15px!important;
+    margin-left: 40px!important;
+    width: 258px;
   }
-  .tab .el-tabs--left .el-tabs__item.is-left{
+  /*.tab .el-tabs--left .el-tabs__item.is-left{
     text-align: center!important;
-  }
+  }*/
   .tab .title{
     margin-bottom: 65px;
   }
   .logs {
-    height: 412px!important;
+    height: 527px!important;
+    margin-top: 20px;
   }
   .logs .el-tabs__content{
-    height: 412px;
+    height: 487px;
     overflow: auto!important;
+    background: white;
+  }
+  .header{
+    height: 62px;
+    background:#526ed7;
+    font-size: 20px;
+    line-height: 62px;
+    text-align: center;
+  }
+  .download {
+    width: 300px;
+    background: #fff;
+    height: 527px;
+    margin-top: 20px;
+    margin-left: 5px;
+  }
+  .download ul li{
+  list-style: none;
+  }
+  .download ul li a{
+    display: inline-block;
+    float: right;
   }
 </style>

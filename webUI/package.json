@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@aspnet/signalr": "^1.1.2",
+    "axios": "^0.18.0",
     "element-ui": "^2.5.4",
     "iview": "^3.2.2",
     "jquery": "^3.3.1",

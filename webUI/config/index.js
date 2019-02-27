@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/signalrApi': {
-        target: 'http://192.168.2.115/',
+        target: 'http://192.168.2.116:19222/',
         changeOrigin: true,
         pathRewrite: {
           '^/signalrApi': ''
@@ -45,12 +45,12 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../../DisplayLog.Web/wwwroot/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../../DisplayLog.Web/wwwroot'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
