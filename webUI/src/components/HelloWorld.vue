@@ -144,6 +144,7 @@ export default {
     height: 487px;
     overflow: auto!important;
     background: white;
+    width: 68%;
   }
   .header{
     height: 62px;
