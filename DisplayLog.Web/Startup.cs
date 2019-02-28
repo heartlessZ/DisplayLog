@@ -61,7 +61,7 @@ namespace DisplayLog.Web
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.RollingFile("Logs/{Date}.log")
+                .WriteTo.RollingFile("Logs/{Date}.txt")
                 .CreateLogger();
 
             DefaultFilesOptions options = new DefaultFilesOptions();

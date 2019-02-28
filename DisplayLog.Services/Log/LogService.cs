@@ -38,7 +38,13 @@ namespace DisplayLog.Services.Log
             {
                 return null;
             }
-            return File.ReadAllBytes(filePath);
+            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                byte[] buffer = new byte[fs.Length];
+                fs.Read(buffer, 0, (int)fs.Length);
+                fs.Close();
+                return buffer;
+            }
         }
 
         public List<string> GetFilesName(string clientName)

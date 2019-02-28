@@ -18,7 +18,7 @@ namespace Test
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .WriteToDisplayLogWeb("http://localhost:19222")
-                .WriteTo.RollingFile("D://Logs//Test//{Date}.log")
+                .WriteTo.RollingFile("D://Logs//Test//{Date}.txt")
                 .CreateLogger();
             
             var connection = new HubConnectionBuilder().WithUrl("http://localhost:19222/pushLogHub")
@@ -56,11 +56,7 @@ namespace Test
             {
                 for (int i = 0; ; i++)
                 {
-                    Log.Debug($"NO.{i} requestdsfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.");
-                    Log.Debug($"NO.{i} request.", new LogOptions()
-                    {
-                        Name = "Demo"
-                    });
+                    Log.Debug($"NO.{i} requestdsffffffffffffffffffffffffffa.");
                     System.Threading.Thread.Sleep(3000);
                 }
             });

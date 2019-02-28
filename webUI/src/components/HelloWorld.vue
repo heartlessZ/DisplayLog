@@ -8,7 +8,7 @@
           <span class="client-type">&nbsp;&nbsp;Client type</span>
           <span class="log-content">&nbsp;&nbsp;Log dynamic</span>
         </div>
-        <el-tabs tab-position="left"  @tab-click="getFileList" v-if="logList && logList.length">
+        <el-tabs tab-position="left"  @tab-click="getFileList" >
           <el-tab-pane v-if="logList && logList.length" v-for="(log,index) in logList" :key='index' :label="log.name" style="background: white">
             <div v-if="log.content && log.content.length > 0" v-for="content in log.content" style="background: white;margin-left: 15px;margin-top: 10px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">{{content}}</div>
           </el-tab-pane>
@@ -18,8 +18,8 @@
     <el-col :span="6">
       <div class="download">
         <p style="background: white;font-weight: bold">&nbsp;&nbsp;Historical Log</p>
-          <ul >
-            <li style="background: white;margin-top: 5px"v-for="file in fileList" ><span style="background: white" >&nbsp;{{file}}</span><a  v-if="fileList && fileList.length" :href="'http://192.168.2.116:19222/api/Log/GetFile?clientName='+clientName+'&fileName='+file" download="logs" style="background: white"><i class="el-icon-download" style="background: white"></i></a></li>
+          <ul>
+            <li style="background: white"v-for="file in fileList" ><span style="background: white" >&nbsp;{{file}}</span><a  v-if="fileList && fileList.length" :href="'http://localhost:19222/api/Log/GetFile?clientName='+clientName+'&fileName='+file" download="logs" style="background: white"><i class="el-icon-download" style="background: white"></i></a></li>
           </ul>
       </div>
     </el-col>
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-  let _this;
   import $ from 'jquery'
+  let _this;
 export default {
   name: 'HelloWorld',
   data() {
@@ -45,7 +45,7 @@ export default {
   mounted(){
     _this = this;
     const connection = new this.signalr.HubConnectionBuilder()
-      .withUrl("http://192.168.2.116:19222/pushLogHub")
+      .withUrl("http://localhost:19222/pushLogHub")
       .build();
     connection.on('ConnectionSuccess', function (message) {
       console.log("ConnectionSuccess and id:", message);
@@ -57,12 +57,12 @@ export default {
          return item.name == message.clientName;
         });
         if(index > -1){
-          _this.logList[index].content.push(message.content);
+          _this.logList[index].content.unshift(message.content);
         }else{
-          _this.logList.push({id:message.appId, name:message.clientName, content:[message.content]});
+          _this.logList.unshift({id:message.appId, name:message.clientName, content:[message.content]});
         }
       }else{
-        _this.logList.push({id:message.appId, name:message.clientName, content:[message.content]});
+        _this.logList.unshift({id:message.appId, name:message.clientName, content:[message.content]});
       }
     });
     connection.serverTimeoutInMilliseconds = 15000; // 100 second
@@ -71,10 +71,10 @@ export default {
   },
   methods:{
      getFileList:function (item) {
-       console.log(item)
-       console.log(item.label);
+      /* console.log(item)
+       console.log(item.label);*/
        this.clientName=item.label;
-       this.$ajax.get('http://192.168.2.116:19222/api/Log/GetFilesName?clientName='+item.label)
+       this.$ajax.get('http://localhost:19222/api/Log/GetFilesName?clientName='+item.label)
          .then(function (res) {
            if(res.data){
              _this.fileList = res.data
@@ -83,7 +83,7 @@ export default {
            }
          })
        console.log(_this.fileList)
-     }
+     },
   }
 }
 </script>
@@ -141,7 +141,8 @@ export default {
     margin-top: 20px;
   }
   .logs .el-tabs__content{
-    height: 487px;
+    width: 68%;
+    height: calc(100vh*0.78);
     overflow: auto!important;
     background: white;
   }
@@ -155,7 +156,7 @@ export default {
   .download {
     width: 300px;
     background: #fff;
-    height: 527px;
+    height: calc(100vh*0.84);
     margin-top: 20px;
     margin-left: 5px;
   }
@@ -165,5 +166,9 @@ export default {
   .download ul li a{
     display: inline-block;
     float: right;
+  }
+  .tab .el-tabs--left .el-tabs__nav.is-left{
+    height: calc(100vh*0.78);
+    background: white;
   }
 </style>
