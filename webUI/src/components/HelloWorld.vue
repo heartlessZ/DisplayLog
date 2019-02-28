@@ -19,11 +19,7 @@
       <div class="download">
         <p style="background: white;font-weight: bold">&nbsp;&nbsp;Historical Log</p>
           <ul>
-<<<<<<< HEAD
             <li style="background: white"v-for="file in fileList" ><span style="background: white" >&nbsp;{{file}}</span><a  v-if="fileList && fileList.length" :href="'http://localhost:19222/api/Log/GetFile?clientName='+clientName+'&fileName='+file" download="logs" style="background: white"><i class="el-icon-download" style="background: white"></i></a></li>
-=======
-            <li style="background: white"v-for="file in fileList" ><span style="background: white" >&nbsp;{{file}}</span><a  v-if="fileList && fileList.length" :href="'http://192.168.2.116:19222/api/Log/GetFile?clientName='+clientName+'&fileName='+file" download="logs" style="background: white"><i class="el-icon-download" style="background: white"></i></a></li>
->>>>>>> 9d3b3c587ba7450281160d1c923160963142c1f8
           </ul>
       </div>
     </el-col>
@@ -49,11 +45,7 @@ export default {
   mounted(){
     _this = this;
     const connection = new this.signalr.HubConnectionBuilder()
-<<<<<<< HEAD
       .withUrl("http://localhost:19222/pushLogHub")
-=======
-      .withUrl("http://192.168.2.115:19222/pushLogHub")
->>>>>>> 9d3b3c587ba7450281160d1c923160963142c1f8
       .build();
     connection.on('ConnectionSuccess', function (message) {
       console.log("ConnectionSuccess and id:", message);
@@ -82,11 +74,7 @@ export default {
       /* console.log(item)
        console.log(item.label);*/
        this.clientName=item.label;
-<<<<<<< HEAD
        this.$ajax.get('http://localhost:19222/api/Log/GetFilesName?clientName='+item.label)
-=======
-       this.$ajax.get('http://192.168.2.115:19222/api/Log/GetFilesName?clientName='+item.label)
->>>>>>> 9d3b3c587ba7450281160d1c923160963142c1f8
          .then(function (res) {
            if(res.data){
              _this.fileList = res.data
